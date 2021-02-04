@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-caselistdoctor',
   templateUrl: './caselistdoctor.component.html',
@@ -8,7 +9,11 @@ import * as $ from 'jquery'
 })
 export class CaselistdoctorComponent implements OnInit {
 
-  constructor() { }
+  CaseDetailsForm: FormGroup;
+  submitted = false;
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -34,6 +39,36 @@ export class CaselistdoctorComponent implements OnInit {
       $('.as-link4').css('border-radius', '20px');
 
     });
+
+    this.CaseDetailsForm = this.formBuilder.group({
+    
+      Note: ['', [Validators.required]],
+      Prescription: ['', [Validators.required]],
+      Status: ['Open', [Validators.required]],
+     
+    });
   }
+
+
+  get f() { return this.CaseDetailsForm.controls; }
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.CaseDetailsForm.valid) {
+      console.log(this.CaseDetailsForm);
+
+     
+
+    }
+    else {
+      return this.CaseDetailsForm.invalid;
+    }
+
+  }
+
+
 
 }

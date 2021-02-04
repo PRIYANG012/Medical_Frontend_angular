@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-laboratorydetailspatientschedule',
   templateUrl: './laboratorydetailspatientschedule.component.html',
@@ -7,7 +9,24 @@ import * as $ from 'jquery'
 })
 export class LaboratorydetailspatientscheduleComponent implements OnInit {
 
-  constructor() { }
+  CaseDetailsForm: FormGroup;
+  submitted = false;
+
+  CaseDetailsForm2: FormGroup;
+  submitted2 = false;
+
+  CaseDetailsForm3: FormGroup;
+  submitted3 = false;
+
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,) { }
+
+
+    ishemoglobin;
+    isCorona;
+    isDengue;
 
   ngOnInit(): void {
    
@@ -30,6 +49,91 @@ export class LaboratorydetailspatientscheduleComponent implements OnInit {
      
     });
 
+    this.ishemoglobin=true;
+    this.isCorona=false;
+    this.isDengue=false;
+
+
+    this.CaseDetailsForm = this.formBuilder.group({
+    
+      Hemoglobin: ['', [Validators.required]],
+     
+    });
+
+    this.CaseDetailsForm2 = this.formBuilder.group({
+    
+      
+      Corona: ['No', [Validators.required]],
+     
+     
+    });
+
+    this.CaseDetailsForm3 = this.formBuilder.group({
+    
+     
+      Dengue: ['No', [Validators.required]],
+     
+    });
+
   }
+
+  get f() { return this.CaseDetailsForm.controls; }
+  get f2() { return this.CaseDetailsForm2.controls; }
+  get f3() { return this.CaseDetailsForm3.controls; }
+
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.CaseDetailsForm.valid) {
+      console.log(this.CaseDetailsForm);
+
+     
+
+    }
+    else {
+      return this.CaseDetailsForm.invalid;
+    }
+
+  }
+
+
+  onSubmit2() {
+
+    this.submitted2 = true;
+
+
+    if (this.CaseDetailsForm2.valid) {
+      console.log(this.CaseDetailsForm2);
+
+     
+
+    }
+    else {
+      return this.CaseDetailsForm2.invalid;
+    }
+
+  }
+
+
+  onSubmit3() {
+
+    this.submitted3 = true;
+
+
+    if (this.CaseDetailsForm3.valid) {
+      console.log(this.CaseDetailsForm3);
+
+     
+
+    }
+    else {
+      return this.CaseDetailsForm3.invalid;
+    }
+
+  }
+
 
 }

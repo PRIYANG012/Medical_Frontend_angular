@@ -5,55 +5,111 @@
                 <h2 class="display-5 text-center">New Doctor Registration</h2>
                 <br>
 
-                <form class="container">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="inputEmail4">First Name</label>
-                        <input type="text" class="form-control" placeholder="First name">
+                <form class="container" [formGroup]="DoctorRegistrationForm" (ngSubmit)="onSubmit()">
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="FirstName">First Name</label>
+                        <input class="form-control  " formControlName="FirstName" name="FirstName" placeholder="FirstName" type="text" 
+                        [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }">
+                       
+                       
+                          <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.FirstName.errors.required">FirstName is required</div>
+  
+                       
+                          </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="LastName">Last Name</label>
+                    <input class="form-control  " formControlName="LastName" name="LastName" placeholder="LastName" type="text" 
+                        [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }">
+                       
+                       
+                          <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.LastName.errors.required">FirstName is required</div>
+  
+                       
+                          </div>
+                  </div>
+                 
+                  <div class="form-group col-md-4">
+                    <label for="Age">Age</label>
+                    <input class="form-control  " formControlName="Age" name="Age" placeholder="eg. 20" type="number" 
+                    [ngClass]="{ 'is-invalid': submitted && f.Age.errors }">
+                   
+                   
+                      <div *ngIf="submitted && f.Age.errors" class="invalid-feedback">
+                    <div *ngIf="f.Age.errors.required">Age is required</div>
+
+                   
                       </div>
-                      <div class="form-group col-md-4">
-                        <label for="inputEmail4">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last name">
-                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Gender</label>
+                    <select class="custom-select mr-sm-2" formControlName="Gender" name="Gender" placeholder="select gender"
+                    [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }" id="inlineFormCustomSelect">
+                      
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="other">other</option>
+
+                    </select>
+                   
+                  </div>
+                 
+                  <div class=" form-group col-md-6">
+                    <label for="Specialization">Specialization (if any)</label>
+                    <input class="form-control  " formControlName="Specialization" name="Specialization" placeholder="eg. Heart Specialist" type="text" 
+                      [ngClass]="{ 'is-invalid': submitted && f.Specialization.errors }">
                      
-                      <div class="form-group col-md-4">
-                        <label for="inputEmail4">Age</label>
-                        <input type="number" class="form-control" placeholder="eg. 20">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="mr-sm-2" for="inlineFormCustomSelect">Gender</label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                          <option selected>Choose...</option>
-                          <option value="1">Male</option>
-                          <option value="2">Female</option>
-                          <option value="3">other</option>
-                        </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="inputEmail4">Specialization (if any)</label>
-                        <input type="text" class="form-control" placeholder="eg. heart specialist">
-                      </div>
                      
+                        <div *ngIf="submitted && f.Specialization.errors" class="invalid-feedback">
+                      <div *ngIf="f.Specialization.errors.required">Specialization is required</div>
+  
+                     
+                        </div>
+                  </div>
+                </div>
+
+                
+
+                <div class="form-row">
+                  <div class="form-group col-lg-6">
+                  <label for="username">Email/UserName</label>
+                  <input class="form-control  " formControlName="email" name="email"  type="email" placeholder="Email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                 
+                 
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                     </div>
+                  </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="inputEmail4">Email/UserName</label>
-                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputPassword4">Password</label>
-                          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                        </div>
+                    <div class="form-group col-md-6">
+                      <label for="password">Password</label>
+                      <input class="form-control  " formControlName="password" name="password" placeholder="password" type="password" 
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                 
+                 
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                  <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+
                     </div>
+                    </div>
+                </div>
 
 
-                      <div class="form-row align-items-center">
-                        
-                        <div class="col-lg-12 my-1 text-center">
-                          <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                      </div>
+                  <div class="form-row align-items-center">
+                    
+                    <div class="col-lg-12 my-1 text-center">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                  </div> 
+                  
+                  
+                  
 
 
                   </form>

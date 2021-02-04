@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-requesttestpatient',
   templateUrl: './requesttestpatient.component.html',
@@ -8,7 +9,11 @@ import * as $ from 'jquery'
 })
 export class RequesttestpatientComponent implements OnInit {
 
-  constructor() { }
+  NewRequestTestForm: FormGroup;
+  submitted = false;
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -35,6 +40,33 @@ export class RequesttestpatientComponent implements OnInit {
 
     });
 
+
+    this.NewRequestTestForm = this.formBuilder.group({
+    
+      PatientId: ['123', [Validators.required]],
+      Date: ['', [Validators.required]],
+      LabType: ['', [Validators.required]],
+     
+    });
+
+  }
+
+  get f() { return this.NewRequestTestForm.controls; }
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.NewRequestTestForm.valid) {
+      console.log(this.NewRequestTestForm);
+
+     
+
+    }
+    else {
+      return this.NewRequestTestForm.invalid;
+    }
 
   }
 

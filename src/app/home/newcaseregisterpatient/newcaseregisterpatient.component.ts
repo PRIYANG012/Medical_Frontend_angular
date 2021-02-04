@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-newcaseregisterpatient',
   templateUrl: './newcaseregisterpatient.component.html',
@@ -8,7 +9,11 @@ import * as $ from 'jquery'
 })
 export class NewcaseregisterpatientComponent implements OnInit {
 
-  constructor() { }
+  NewCaseRegistrationForm: FormGroup;
+  submitted = false;
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -33,6 +38,34 @@ export class NewcaseregisterpatientComponent implements OnInit {
       $('.as-link4').css('border-radius', '20px');
 
     });
+
+    this.NewCaseRegistrationForm = this.formBuilder.group({
+    
+      PatientId: ['123', [Validators.required]],
+      Date: ['', [Validators.required]],
+      ProblemType: ['', [Validators.required]],
+      Doctor: ['', [Validators.required]],
+      Summary: ['', [Validators.required]],
+    });
+  }
+
+  get f() { return this.NewCaseRegistrationForm.controls; }
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.NewCaseRegistrationForm.valid) {
+      console.log(this.NewCaseRegistrationForm);
+
+     
+
+    }
+    else {
+      return this.NewCaseRegistrationForm.invalid;
+    }
+
   }
 
 }

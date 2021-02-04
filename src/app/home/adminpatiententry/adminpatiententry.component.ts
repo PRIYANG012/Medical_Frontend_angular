@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-adminpatiententry',
   templateUrl: './adminpatiententry.component.html',
@@ -8,7 +9,13 @@ import * as $ from 'jquery'
 })
 export class AdminpatiententryComponent implements OnInit {
 
-  constructor() { }
+  PatientRegistrationForm: FormGroup;
+  submitted = false;
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
 
@@ -30,6 +37,36 @@ export class AdminpatiententryComponent implements OnInit {
      
     });
 
+
+    this.PatientRegistrationForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      FirstName: ['', [Validators.required]],
+      LastName: ['', [Validators.required]],
+      Age: ['', [Validators.required]],
+      Gender: ['Male', [Validators.required]]
+    });
+
+
+  }
+
+  get f() { return this.PatientRegistrationForm.controls; }
+  
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.PatientRegistrationForm.valid) {
+      console.log(this.PatientRegistrationForm);
+
+     
+
+    }
+    else {
+      return this.PatientRegistrationForm.invalid;
+    }
 
   }
 

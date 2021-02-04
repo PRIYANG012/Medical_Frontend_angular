@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-admindoctorentry',
   templateUrl: './admindoctorentry.component.html',
@@ -8,7 +9,13 @@ import * as $ from 'jquery'
 })
 export class AdmindoctorentryComponent implements OnInit {
 
-  constructor() { }
+  DoctorRegistrationForm: FormGroup;
+  submitted = false;
+
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -28,6 +35,34 @@ export class AdmindoctorentryComponent implements OnInit {
       $('.as-link3').css('border-radius', '20px');
 
     });
+
+    this.DoctorRegistrationForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      FirstName: ['', [Validators.required]],
+      LastName: ['', [Validators.required]],
+      Age: ['', [Validators.required]],
+      Gender: ['Male', [Validators.required]],
+      Specialization: ['', [Validators.required]],
+    });
   }
 
+  get f() { return this.DoctorRegistrationForm.controls; }
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.DoctorRegistrationForm.valid) {
+      console.log(this.DoctorRegistrationForm);
+
+     
+
+    }
+    else {
+      return this.DoctorRegistrationForm.invalid;
+    }
+
+  }
 }

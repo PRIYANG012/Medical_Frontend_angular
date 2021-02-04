@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
-
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-adminlabentry',
   templateUrl: './adminlabentry.component.html',
@@ -8,7 +9,12 @@ import * as $ from 'jquery'
 })
 export class AdminlabentryComponent implements OnInit {
 
-  constructor() { }
+  LaboratoryRegistrationForm: FormGroup;
+  submitted = false;
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -28,6 +34,35 @@ export class AdminlabentryComponent implements OnInit {
       $('.as-link2').css('border-radius', '20px');
 
     });
+
+    this.LaboratoryRegistrationForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      FirstName: ['', [Validators.required]],
+      LastName: ['', [Validators.required]],
+      Age: ['', [Validators.required]],
+      Gender: ['Male', [Validators.required]],
+     
+    });
+  }
+
+  get f() { return this.LaboratoryRegistrationForm.controls; }
+
+  onSubmit() {
+
+    this.submitted = true;
+
+
+    if (this.LaboratoryRegistrationForm.valid) {
+      console.log(this.LaboratoryRegistrationForm);
+
+     
+
+    }
+    else {
+      return this.LaboratoryRegistrationForm.invalid;
+    }
+
   }
 
 }

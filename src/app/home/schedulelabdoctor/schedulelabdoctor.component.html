@@ -4,35 +4,54 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="container">
                     <h2 class="display-5 text-center">Schedule Laboratory</h2>
-                    <form class="row text-center mt-5">
-
-                        <div class="form-group col-lg-3">
-                            <label for="exampleFormControlInput1">Patient Id</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="eg. 123">
-                          </div>
-
-                        <div class="form-group col-lg-3">
-                          <label for="exampleFormControlInput1">Appointment Date</label>
-                          <input type="date" class="form-control" id="exampleFormControlInput1" >
-                        </div>
-                        
-                        <div class="form-group col-lg-3">
-                          <label for="exampleFormControlSelect2">Laboratory Type</label>
-                          <select  class="form-control" id="exampleFormControlSelect2">
-                            <option>Corona</option>
-                            <option>Dengue</option>
-                            <option>Blood</option>
+                    <form class="row text-center mt-5" [formGroup]="NewRequestTestForm" (ngSubmit)="onSubmit()" >
+ 
+                      <div class="form-group col-lg-3">
+                          <label for="exampleFormControlInput1">Patient Id</label>
+                          <input type="text" formControlName="PatientId" name="PatientId" 
+                          [ngClass]="{ 'is-invalid': submitted && f.PatientId.errors }"  class="form-control" id="exampleFormControlInput1" placeholder="eg. 123">
+                          <div *ngIf="submitted && f.PatientId.errors" class="invalid-feedback">
+                            <div *ngIf="f.PatientId.errors.required">PatientId is required</div>
+      
                            
-                          </select>
+                              </div>
                         </div>
 
-                        <div class="form-group col-lg-2">
-                           <br>
-                           <button class=" mt-2 btn btn-primary">Schedule</button>
-                          </div>
-                        
+                      <div class="form-group col-lg-3">
+                        <label for="exampleFormControlInput1">Appointment Date</label>
+                        <input type="date" class="form-control" formControlName="Date" name="Date" 
+                        [ngClass]="{ 'is-invalid': submitted && f.Date.errors }"
+                        id="Date"  >
+                        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+                          <div *ngIf="f.Date.errors.required">Date is required</div>
+    
+                         
+                            </div>
+                      </div>
+                      
+                      <div class="form-group col-lg-3">
+                        <label for="exampleFormControlSelect2">Laboratory Type</label>
+                        <select  class="form-control"  formControlName="LabType" name="LabType" 
+                        [ngClass]="{ 'is-invalid': submitted && f.LabType.errors }"  id="exampleFormControlSelect2">
+                          <option value="Corona">Corona</option>
+                          <option value="Dengue">Dengue</option>
+                          <option value="Blood">Blood</option>
+                         
+                        </select>
+                        <div *ngIf="submitted && f.LabType.errors" class="invalid-feedback">
+                          <div *ngIf="f.LabType.errors.required">LabType is required</div>
+    
+                         
+                            </div>
+                      </div>
 
-                      </form>
+                      <div class="form-group col-lg-2">
+                         <br>
+                         <button class=" mt-2 btn btn-primary">Schedule</button>
+                        </div>
+                      
+
+                    </form>
                 </div>
             </div>
         </div>

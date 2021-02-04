@@ -57,38 +57,49 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <form >
+                            <form  *ngIf="ishemoglobin" [formGroup]="CaseDetailsForm" (ngSubmit)="onSubmit()" >
                                 <div class="form-group text-center">
-                                    <label for="himoglobin">Himoglobin</label>
-                                    <input type="text" class="form-control" placeholder="eg. 10"> 
+                                    <label for="himoglobin">Hemoglobin</label>
+                                    <input type="text" class="form-control" formControlName="Hemoglobin" name="Hemoglobin" placeholder="eg. 10" type="text" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.Hemoglobin.errors }"> 
+                                    <div *ngIf="submitted && f.Hemoglobin.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Hemoglobin.errors.required">Hemoglobin is required</div>
+                  
+                                       
+                                          </div>
                                     <br>
-
-                                    <button type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+                                    <button type="submit" class="btn text-center btn-success" >Submit</button>
 
                                 </div>
-                                <hr>
-                                <div class="form-group text-center">
-                                    <label for="himoglobin">CORONA</label><br>
-                                    <input type="radio" name="corona"  placeholder="eg. 10"> <span>&nbsp;Yes</span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="corona"  placeholder="eg. 10"> <span>&nbsp;No</span>
-                                    <br>
-                                    <br>
-                                    <button type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+                                     
+                                 </form>
 
-                                </div>
-                                <hr>
-                                <div class="form-group text-center">
-                                    <label for="himoglobin">Dengue</label><br>
-                                    <input type="radio" name="Dengue"  placeholder="eg. 10"> <span>&nbsp;Yes</span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="Dengue"  placeholder="eg. 10"> <span>&nbsp;No</span>
-                                    <br>
-                                    <br>
-                                    
-                                    <button type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+                                 <form  *ngIf="isCorona" [formGroup]="CaseDetailsForm2" (ngSubmit)="onSubmit2()" >
+                                    <div class="form-group text-center">
+                                        <label for="himoglobin">CORONA</label><br>
+                                        <input type="radio"  value="Yes" formControlName="Corona" name="Corona"  placeholder="eg. 10"> <span>&nbsp;Yes</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="radio"  value="No" formControlName="Corona" name="Corona"  placeholder="eg. 10"> <span>&nbsp;No</span>
+                                   <br><br> <button type="submit" class=" text-center btn btn-success" >Submit</button>
 
-                                </div>
+                                    </div>
+
+                                    </form> 
+                                    <br>
+
+                                    <form *ngIf="isDengue" [formGroup]="CaseDetailsForm3" (ngSubmit)="onSubmit3()" >
+                                    <div class="form-group text-center">
+                                        <label for="himoglobin">Dengue</label><br>
+                                        <input type="radio" name="Dengue" value="Yes" formControlName="Dengue" name="Dengue" placeholder="eg. 10"> <span>&nbsp;Yes</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="Dengue" value="No" formControlName="Dengue" name="Dengue"  placeholder="eg. 10"> <span>&nbsp;No</span>
+                                   <br><br> <button type="submit" class="  text-center btn btn-success" >Submit</button>
+                                        
+                                    </div>
+                                    <br>
+                               
+                               
+                                
                             </form>
                         </div>
                         <div class="modal-footer">
