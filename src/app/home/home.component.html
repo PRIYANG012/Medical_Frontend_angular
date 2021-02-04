@@ -1,0 +1,10 @@
+
+<div >
+<app-navbar-admin *ngIf="isAdmin"></app-navbar-admin></div>
+<div >
+<app-navlaboratory *ngIf="isLaboratory"></app-navlaboratory></div>
+<div>
+<app-navpatient *ngIf="this.isPatient"></app-navpatient></div>
+
+
+<router-outlet></router-outlet>

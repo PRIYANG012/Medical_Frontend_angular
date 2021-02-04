@@ -1,0 +1,47 @@
+.psw{
+
+    float: right;
+}
+.login-logo{
+
+    height: auto;
+    width: 120px;
+}
+
+.head2
+{
+    padding: 15px;
+}
+
+#head3{
+    font-size:xx-large ;
+    text-align: center;
+}
+.main-heading{
+
+    text-align: center;
+}
+
+#head1{
+        font-size: xx-large;
+        font-family: 'Times New Roman', Times, serif;
+        font-style: italic;
+        padding-left: 2%;
+    
+}
+.page {
+    background-color: #a8a8a81c;
+}
+.main-form{
+    background-color: rgb(255, 255, 255);
+}
+
+.portfolio-block {
+    padding-top: 5%;
+}
+
+.space1{
+    margin-top: 5%;
+    border-radius: 20px;
+    width:50%;
+}

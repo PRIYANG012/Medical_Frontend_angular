@@ -1,0 +1,70 @@
+
+<main class="page">
+    <div class="container-fluid">
+        
+    <section class="portfolio-block ">
+        <div class="container">
+            <div class="main-heading ">
+                <div class="row"> 
+                    
+                    <div class="col-md-12 col-sm-12 head2">
+                        <br>
+                        <span id="head1" > <i class="fas fa-first-aid px-2"></i>Medical System</span>
+                    </div>
+                    <div class="col-md-4 col-sm-12"></div>
+                </div>
+            </div>
+
+            <form class="main-form space1"  [formGroup]="FORMLOGIN" (ngSubmit)="onSubmit()" >
+                
+                <div class="input-group">
+                    <input class="form-control border-right-0" formControlName="email" name="email"  type="email" placeholder="Email"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <span class="input-group-append bg-white">
+                        <span class="input-group-text bg-transparent">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </span>
+                   
+                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input class="form-control border-right-0" formControlName="password" name="password"  type="password" placeholder="Password"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <span class="input-group-append bg-white">
+                        <span class="input-group-text bg-transparent">
+                            <i class="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                    </span>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                </div>
+                <br>
+                <div class="input-group">
+                <button class="form-control border-right-0 btn btn-primary" >Login</button>
+                </div>
+              
+                    <input type="checkbox" checked="checked" formControlName="remember" name="remember"> Remember me 
+                    <span class="psw"><a (click)="onForgot()" style="color: rgb(34, 130, 255);cursor: pointer;">Forgot password?</a></span> 
+
+        </form>
+        
+        </div>
+    </section>
+
+    <footer>
+        <div class="row text-center">
+            <div class="col-lg-4 col-md-4 col-sm-12"><span><a href="#">Privacy Policy</a></span></div>
+            <div class="col-lg-4 col-md-4 col-sm-12"><span>@ 2020 - ALL rights reserved.</span></div>
+            <div class="col-lg-4 col-md-4 col-sm-12"><a href="#">Terms & Condition</a></div>
+        </div>
+    </footer>
+
+    </div>
+</main>

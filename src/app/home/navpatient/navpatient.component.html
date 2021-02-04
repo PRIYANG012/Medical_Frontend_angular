@@ -1,0 +1,33 @@
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="background-color: rgb(255, 255, 255);">
+    <div class="container-fluid">
+        <a class="navbar-brand" (click)="onHome()">                         <i class="fas fa-first-aid"></i> &nbsp;
+
+            <span id="head1">Medical System</span>
+        </a>
+
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+               
+               
+               
+            </ul>
+            <span class="navbar-text actions"><a class="" role="button"
+               >Mr/Ms Name Here &nbsp;&nbsp;|  </a></span>
+            &nbsp;&nbsp;
+            <span class="navbar-text actions"><a class="btn btn-light action-button logout" role="button"
+                    (click)="onlogout()">Logout</a></span>
+        </div>
+    </div>
+</nav>
+
+
+<div class="sidebar">
+    <div><a class="as-link1 cur" (click)="onPatient()">My Cases</a><span class="active-tab1"></span></div>
+    <div><a class="as-link2 cur" (click)="onRegister()">Register New Case</a><span class="active-tab2"></span></div>
+    <div><a class="as-link3 cur" (click)="onTest()">Request Test</a><span class="active-tab3"></span></div>
+    <div><a class="as-link4 cur" (click)="onlabResults()">Lab Results</a><span class="active-tab4"></span></div>
+
+</div>
+
