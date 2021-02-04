@@ -11,11 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { HomeguardGuard } from './homeguard.guard';
-import { NavbardoctorComponent } from './home/navbardoctor/navbardoctor.component';
 import { NavbarAdminComponent } from './home/navbar-admin/navbar-admin.component';
-import { PatientListComponent } from './home/patient-list/patient-list.component';
-import { DoctorListComponent } from './home/doctor-list/doctor-list.component';
-import { ANALYSISComponent } from './home/analysis/analysis.component';
 
 import { AddPatientComponent } from './home/add-patient/add-patient.component';
 import { AddDoctorComponent } from './home/add-doctor/add-doctor.component';
@@ -45,11 +41,7 @@ import { AdminlabentryComponent } from './home/adminlabentry/adminlabentry.compo
     HomeComponent,
     ForgotpasswordComponent,
 
-    NavbardoctorComponent,
     NavbarAdminComponent,
-    PatientListComponent,
-    DoctorListComponent,
-    ANALYSISComponent,
     
     AddPatientComponent,
     AddDoctorComponent,
@@ -149,7 +141,7 @@ import { AdminlabentryComponent } from './home/adminlabentry/adminlabentry.compo
         path:'Admin',
         component: HomeComponent,canActivate:[HomeguardGuard],
         children: [
-          {
+           {
             path: '', // child route path
             component: AdminpatiententryComponent // child route component that the router renders
           },
