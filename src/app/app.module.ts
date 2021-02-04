@@ -125,7 +125,7 @@ import { NavpatientComponent } from './home/navpatient/navpatient.component';
           
           {
             path: 'labresult', // child route path
-            component: MycasespatientComponent // child route component that the router renders
+            component: LabresultspatientComponent // child route component that the router renders
           },
           
 
