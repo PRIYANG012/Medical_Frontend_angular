@@ -30,7 +30,7 @@ export class NavbarAdminComponent implements OnInit {
 onPatient(){
    
   
-  this.router.navigate(['./patientlist'],{relativeTo :this.route})
+  this.router.navigate(['./patient'],{relativeTo :this.route})
 
 
 }
@@ -38,44 +38,20 @@ onPatient(){
 
 onDoctor(){
    
-  this.router.navigate(['./Doctorlist'],{relativeTo :this.route})
+  this.router.navigate(['./doctor'],{relativeTo :this.route})
 
 }
 
-onAnalysis(){
-  this.router.navigate(['./Analysis'],{relativeTo :this.route})
+onLab(){
+  this.router.navigate(['./laboratory'],{relativeTo :this.route})
 
 }
 
 onHome(){
-  this.router.navigate(['./patientlist'],{relativeTo :this.route})
-
-}
-
-onprecautions()
-{
-  this.router.navigate(['./precautions'],{relativeTo :this.route})
-
-}
-
-oncase(){
-  this.router.navigate(['./AddCase'],{relativeTo :this.route})
+  this.router.navigate(['./patient'],{relativeTo :this.route})
 
 }
 
 
-onvitals(){
-  this.router.navigate(['./AddVital'],{relativeTo :this.route})
-}
-
-onaddDoctor(){
-  this.router.navigate(['./AddDoctor'],{relativeTo :this.route})
-
-}
-
-onaddPatient(){
-  this.router.navigate(['./AddPatient'],{relativeTo :this.route})
-
-}
 }
 

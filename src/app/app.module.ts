@@ -30,6 +30,14 @@ import { NewcaseregisterpatientComponent } from './home/newcaseregisterpatient/n
 import { RequesttestpatientComponent } from './home/requesttestpatient/requesttestpatient.component';
 import { LabresultspatientComponent } from './home/labresultspatient/labresultspatient.component';
 import { NavpatientComponent } from './home/navpatient/navpatient.component';
+import { NavdoctorComponent } from './home/navdoctor/navdoctor.component';
+import { CaselistdoctorComponent } from './home/caselistdoctor/caselistdoctor.component';
+import { FutureappointmentdoctorComponent } from './home/futureappointmentdoctor/futureappointmentdoctor.component';
+import { SchedulelabdoctorComponent } from './home/schedulelabdoctor/schedulelabdoctor.component';
+import { LabresultsdoctorComponent } from './home/labresultsdoctor/labresultsdoctor.component';
+import { AdminpatiententryComponent } from './home/adminpatiententry/adminpatiententry.component';
+import { AdmindoctorentryComponent } from './home/admindoctorentry/admindoctorentry.component';
+import { AdminlabentryComponent } from './home/adminlabentry/adminlabentry.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +62,14 @@ import { NavpatientComponent } from './home/navpatient/navpatient.component';
     RequesttestpatientComponent,
     LabresultspatientComponent,
     NavpatientComponent,
+    NavdoctorComponent,
+    CaselistdoctorComponent,
+    FutureappointmentdoctorComponent,
+    SchedulelabdoctorComponent,
+    LabresultsdoctorComponent,
+    AdminpatiententryComponent,
+    AdmindoctorentryComponent,
+    AdminlabentryComponent,
    
    
   ],
@@ -94,6 +110,60 @@ import { NavpatientComponent } from './home/navpatient/navpatient.component';
           {
             path: 'history', // child route path
             component: LaboratorydetailsHistoryComponent // child route component that the router renders
+          },
+
+          
+        ] 
+      }
+      ,
+      {
+        path:'Doctor',
+        component: HomeComponent,canActivate:[HomeguardGuard],
+        children: [
+          {
+            path: '', // child route path
+            component: CaselistdoctorComponent // child route component that the router renders
+          },
+          {
+            path: 'caselist', // child route path
+            component: CaselistdoctorComponent // child route component that the router renders
+          },
+          {
+            path: 'futureappointment', // child route path
+            component: FutureappointmentdoctorComponent // child route component that the router renders
+          },
+          {
+            path: 'schedulelab', // child route path
+            component: SchedulelabdoctorComponent // child route component that the router renders
+          },
+          {
+            path: 'labsresult', // child route path
+            component: LabresultsdoctorComponent // child route component that the router renders
+          }
+
+          
+        ] 
+      }
+      ,
+      {
+        path:'Admin',
+        component: HomeComponent,canActivate:[HomeguardGuard],
+        children: [
+          {
+            path: '', // child route path
+            component: AdminpatiententryComponent // child route component that the router renders
+          },
+          {
+            path: 'patient', // child route path
+            component: AdminpatiententryComponent // child route component that the router renders
+          },
+          {
+            path: 'doctor', // child route path
+            component: AdmindoctorentryComponent // child route component that the router renders
+          },
+          {
+            path: 'laboratory', // child route path
+            component: AdminlabentryComponent // child route component that the router renders
           },
 
           

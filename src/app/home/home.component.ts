@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   isLaboratory;
   isPatient;
   isAdmin;
+  isDoctor;
 
   constructor( private route: ActivatedRoute,
     private auth: AuthgaurdserviceService,
@@ -22,12 +23,32 @@ export class HomeComponent implements OnInit {
     {
       this.isLaboratory=true;
       this.isPatient=false;
+      this.isDoctor=false;
+      this.isAdmin=false;
 
     }
     else if(localStorage.getItem('Patient_Is_True_or_False')=="true"){
       this.isLaboratory=false;
-
       this.isPatient=true;
+      this.isDoctor=false;
+
+      this.isAdmin=false;
+
+    }
+    else if(localStorage.getItem('Doctor_Is_True_or_False')=="true"){
+      this.isLaboratory=false;
+      this.isPatient=false;
+      this.isDoctor=true;
+      this.isAdmin=false;
+
+
+    }
+    else if(localStorage.getItem('Admin_Is_True_or_False')=="true"){
+      this.isLaboratory=false;
+      this.isPatient=false;
+      this.isDoctor=false;
+      this.isAdmin=true;
+
 
     }
   }

@@ -52,18 +52,46 @@ export class LoginComponent implements OnInit {
       }
       localStorage.setItem('isUserOfthisProjectLoggedIn', "true");
       if (this.FORMLOGIN.value.email == "laboratory@hospital.com") {
-        alert("in lab")
+       
         localStorage.setItem('Laboratory_Is_True_or_False', "true")
+        localStorage.setItem('Admin_Is_True_or_False', "false")
+
         localStorage.setItem('Patient_Is_True_or_False', "false")
+        localStorage.setItem('Doctor_Is_True_or_False', "false")
+
 
         this.router.navigate(['../Laboratory'], { relativeTo: this.route })
       }
       else if(this.FORMLOGIN.value.email == "patient@hospital.com") {
-        alert("in patient")
+        
         localStorage.setItem('Patient_Is_True_or_False', "true")
         localStorage.setItem('Laboratory_Is_True_or_False', "false")
+        localStorage.setItem('Doctor_Is_True_or_False', "false")
 
-        this.router.navigate(['../patient'], { relativeTo: this.route })
+        localStorage.setItem('Admin_Is_True_or_False', "false")
+
+        this.router.navigate(['../Patient'], { relativeTo: this.route })
+
+      }
+      else if(this.FORMLOGIN.value.email == "doctor@hospital.com") {
+        localStorage.setItem('Doctor_Is_True_or_False', "true")
+    
+        localStorage.setItem('Patient_Is_True_or_False', "false")
+        localStorage.setItem('Laboratory_Is_True_or_False', "false")
+        localStorage.setItem('Admin_Is_True_or_False', "false")
+
+
+        this.router.navigate(['../Doctor'], { relativeTo: this.route })
+
+      }
+      else if(this.FORMLOGIN.value.email == "admin@hospital.com") {
+        localStorage.setItem('Doctor_Is_True_or_False', "false")
+        localStorage.setItem('Admin_Is_True_or_False', "true")
+    
+        localStorage.setItem('Patient_Is_True_or_False', "false")
+        localStorage.setItem('Laboratory_Is_True_or_False', "false")
+
+        this.router.navigate(['../Admin'], { relativeTo: this.route })
 
       }
 

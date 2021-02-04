@@ -15,7 +15,24 @@ export class LOGINAUTHGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
        if(localStorage.getItem('isUserOfthisProjectLoggedIn') == "true"){
-        this.router.navigate(['/home']); 
+        if(localStorage.getItem('Laboratory_Is_True_or_False')=="true")
+    {
+      this.router.navigate(['/Laboratory']); 
+
+    }
+    else if(localStorage.getItem('Patient_Is_True_or_False')=="true"){
+      this.router.navigate(['/Patient']); 
+
+    }
+    else if(localStorage.getItem('Doctor_Is_True_or_False')=="true"){
+      this.router.navigate(['/Doctor']); 
+
+    }
+    else if(localStorage.getItem('Admin_Is_True_or_False')=="true"){
+      this.router.navigate(['/Admin']); 
+
+    }
+       
         return false;
       }
      

@@ -9,6 +9,8 @@ export class AuthgaurdserviceService {
     localStorage.setItem('isUserOfthisProjectLoggedIn','false'); 
     localStorage.setItem('Laboratory_Is_True_or_False', 'false')
     localStorage.setItem('Patient_Is_True_or_False', 'false')
+    localStorage.setItem('Doctor_Is_True_or_False', 'false')
+
     }   
  
 }
