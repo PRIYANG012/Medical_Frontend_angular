@@ -8,7 +8,7 @@
  
                       <div class="form-group col-lg-3">
                           <label for="exampleFormControlInput1">Patient Id</label>
-                          <input type="text" formControlName="PatientId" name="PatientId" 
+                          <input type="number" formControlName="PatientId" name="PatientId" 
                           [ngClass]="{ 'is-invalid': submitted && f.PatientId.errors }"  class="form-control" id="exampleFormControlInput1" placeholder="eg. 123">
                           <div *ngIf="submitted && f.PatientId.errors" class="invalid-feedback">
                             <div *ngIf="f.PatientId.errors.required">PatientId is required</div>

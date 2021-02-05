@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
+import { MainservicesService } from 'src/app/service/mainservices.service'
+import { RxFormBuilder,FormGroupExtension,RxFormGroup ,ResetFormType} from '@rxweb/reactive-form-validators'; 
 @Component({
   selector: 'app-adminpatiententry',
   templateUrl: './adminpatiententry.component.html',
@@ -9,12 +11,13 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class AdminpatiententryComponent implements OnInit {
 
-  PatientRegistrationForm: FormGroup;
+  PatientRegistrationForm: RxFormGroup;
   submitted = false;
-
-  constructor(private formBuilder: FormBuilder,
+ 
+  constructor(private formBuilder: RxFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private addPatient:MainservicesService
     ) { }
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class AdminpatiententryComponent implements OnInit {
     });
 
 
-    this.PatientRegistrationForm = this.formBuilder.group({
+    this.PatientRegistrationForm = <RxFormGroup>this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       FirstName: ['', [Validators.required]],
@@ -61,6 +64,30 @@ export class AdminpatiententryComponent implements OnInit {
     if (this.PatientRegistrationForm.valid) {
       console.log(this.PatientRegistrationForm);
 
+      this.addPatient.AddPatient(
+        this.PatientRegistrationForm.value.FirstName,
+        this.PatientRegistrationForm.value.LastName,
+        this.PatientRegistrationForm.value.email,
+        this.PatientRegistrationForm.value.password,
+        String(this.PatientRegistrationForm.value.Age),
+        this.PatientRegistrationForm.value.Gender,
+        
+        ).subscribe(data =>{
+         alert(data["msg"]);
+         this.reset()
+        
+         
+     },
+     err => {
+       console.log(err['status'])
+       if(err['status'] == '400'){
+       }
+       else if(err['status'] == '500'){
+       }
+     }
+     
+     )
+
      
 
     }
@@ -68,6 +95,13 @@ export class AdminpatiententryComponent implements OnInit {
       return this.PatientRegistrationForm.invalid;
     }
 
+  }
+
+  reset(){
+    this.PatientRegistrationForm.resetForm({resetType:ResetFormType.ControlsOnly}); 
+    Object.keys(this.PatientRegistrationForm.controls).forEach(key => {
+      this.PatientRegistrationForm.controls[key].setErrors(null)
+    });
   }
 
 }

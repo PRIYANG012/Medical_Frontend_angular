@@ -13,9 +13,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { HomeguardGuard } from './homeguard.guard';
 import { NavbarAdminComponent } from './home/navbar-admin/navbar-admin.component';
 
-import { AddPatientComponent } from './home/add-patient/add-patient.component';
-import { AddDoctorComponent } from './home/add-doctor/add-doctor.component';
-
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators'; 
 import { HttpClientModule } from '@angular/common/http';
 import { NavlaboratoryComponent } from './home/navlaboratory/navlaboratory.component';
 import { LaboratorydetailsdoctorscheduleComponent } from './home/laboratorydetailsdoctorschedule/laboratorydetailsdoctorschedule.component';
@@ -43,8 +41,7 @@ import { AdminlabentryComponent } from './home/adminlabentry/adminlabentry.compo
 
     NavbarAdminComponent,
     
-    AddPatientComponent,
-    AddDoctorComponent,
+  
     NavlaboratoryComponent,
     LaboratorydetailsdoctorscheduleComponent,
     LaboratorydetailspatientscheduleComponent,
@@ -69,6 +66,7 @@ import { AdminlabentryComponent } from './home/adminlabentry/adminlabentry.compo
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    RxReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,

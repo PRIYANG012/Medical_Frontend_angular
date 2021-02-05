@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
+import { MainservicesService } from 'src/app/service/mainservices.service'
+import { RxFormBuilder,FormGroupExtension,RxFormGroup ,ResetFormType} from '@rxweb/reactive-form-validators'; 
 @Component({
   selector: 'app-schedulelabdoctor',
   templateUrl: './schedulelabdoctor.component.html',
@@ -9,11 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class SchedulelabdoctorComponent implements OnInit {
 
-  NewRequestTestForm: FormGroup;
+  NewRequestTestForm: RxFormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: RxFormBuilder,
     private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router,
+    private addRequest:MainservicesService) { }
 
 
   ngOnInit(): void {
@@ -41,7 +44,7 @@ export class SchedulelabdoctorComponent implements OnInit {
 
     });
 
-    this.NewRequestTestForm = this.formBuilder.group({
+    this.NewRequestTestForm =<RxFormGroup> this.formBuilder.group({
     
       PatientId: ['', [Validators.required]],
       Date: ['', [Validators.required]],
@@ -58,11 +61,99 @@ export class SchedulelabdoctorComponent implements OnInit {
 
     this.submitted = true;
 
-
+    var DatePass=this.NewRequestTestForm.value.Date
+    var c=DatePass.split('-');
+    
+    DatePass=c[2]+'-'+c[1]+'-'+c[0]
+    var currentDoctorId=localStorage.getItem('currentUserId')
     if (this.NewRequestTestForm.valid) {
       console.log(this.NewRequestTestForm);
 
+      if(this.NewRequestTestForm.value.LabType=="Corona"){
+
+        this.addRequest.ScheduleDocCovidTest(
+          this.NewRequestTestForm.value.PatientId,
+          currentDoctorId,
+        
+          " ",
+          DatePass
+           
+            
+            ).subscribe(data =>{
+             alert(data["msg"]);
+             this.reset()
+            
+             
+         },
+         err => {
+           console.log(err['status'])
+           if(err['status'] == '400'){
+           }
+           else if(err['status'] == '500'){
+           }
+         }
+         
+         )
      
+         
+      }
+      else if(this.NewRequestTestForm.value.LabType=="Dengue"){
+
+        this.addRequest.ScheduleDocDengueTest(
+          this.NewRequestTestForm.value.PatientId,
+          currentDoctorId,
+         
+          " ",
+          DatePass
+           
+            ).subscribe(data =>{
+             alert(data["msg"]);
+             this.reset()
+            
+             
+         },
+         err => {
+           console.log(err['status'])
+           if(err['status'] == '400'){
+           }
+           else if(err['status'] == '500'){
+           }
+         }
+         
+         )
+     
+         
+
+      }
+      else if(this.NewRequestTestForm.value.LabType=="Blood"){
+
+
+        this.addRequest.ScheduleDocBloodTest(
+          this.NewRequestTestForm.value.PatientId,
+
+          currentDoctorId,
+          " ",
+          DatePass
+            
+           
+            
+            ).subscribe(data =>{
+             alert(data["msg"]);
+             this.reset()
+            
+             
+         },
+         err => {
+           console.log(err['status'])
+           if(err['status'] == '400'){
+           }
+           else if(err['status'] == '500'){
+           }
+         }
+         
+         )
+         
+      }
 
     }
     else {
@@ -71,5 +162,11 @@ export class SchedulelabdoctorComponent implements OnInit {
 
   }
 
+  reset(){
+    this.NewRequestTestForm.resetForm({resetType:ResetFormType.ControlsOnly}); 
+    Object.keys(this.NewRequestTestForm.controls).forEach(key => {
+      this.NewRequestTestForm.controls[key].setErrors(null)
+    });
+  }
 
 }

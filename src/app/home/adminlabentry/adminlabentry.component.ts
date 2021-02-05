@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
+import { MainservicesService } from 'src/app/service/mainservices.service'
+import { RxFormBuilder,FormGroupExtension,RxFormGroup ,ResetFormType} from '@rxweb/reactive-form-validators'; 
 @Component({
   selector: 'app-adminlabentry',
   templateUrl: './adminlabentry.component.html',
@@ -9,12 +11,13 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class AdminlabentryComponent implements OnInit {
 
-  LaboratoryRegistrationForm: FormGroup;
+  LaboratoryRegistrationForm: RxFormGroup;;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: RxFormBuilder,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private addLab:MainservicesService) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -35,7 +38,7 @@ export class AdminlabentryComponent implements OnInit {
 
     });
 
-    this.LaboratoryRegistrationForm = this.formBuilder.group({
+    this.LaboratoryRegistrationForm =<RxFormGroup> this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       FirstName: ['', [Validators.required]],
@@ -55,7 +58,32 @@ export class AdminlabentryComponent implements OnInit {
 
     if (this.LaboratoryRegistrationForm.valid) {
       console.log(this.LaboratoryRegistrationForm);
-
+      if (this.LaboratoryRegistrationForm.valid) {
+        console.log(this.LaboratoryRegistrationForm);
+  
+        this.addLab.AddLab(
+          this.LaboratoryRegistrationForm.value.FirstName,
+          this.LaboratoryRegistrationForm.value.LastName,
+          this.LaboratoryRegistrationForm.value.email,
+          this.LaboratoryRegistrationForm.value.password,
+          String(this.LaboratoryRegistrationForm.value.Age),
+          this.LaboratoryRegistrationForm.value.Gender,
+          
+          ).subscribe(data =>{
+           alert(data["msg"]);
+           this.reset()
+          
+           
+       },
+       err => {
+         console.log(err['status'])
+         if(err['status'] == '400'){
+         }
+         else if(err['status'] == '500'){
+         }
+       }
+       
+       )
      
 
     }
@@ -65,4 +93,12 @@ export class AdminlabentryComponent implements OnInit {
 
   }
 
+  
+}
+reset(){
+  this.LaboratoryRegistrationForm.resetForm({resetType:ResetFormType.ControlsOnly}); 
+  Object.keys(this.LaboratoryRegistrationForm.controls).forEach(key => {
+    this.LaboratoryRegistrationForm.controls[key].setErrors(null)
+  });
+}
 }

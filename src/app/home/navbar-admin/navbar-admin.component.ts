@@ -10,11 +10,18 @@ import * as $ from 'jquery'
 })
 export class NavbarAdminComponent implements OnInit {
 
+  FirstName;
+  LastName;
+
   constructor( private route: ActivatedRoute,
     private auth: AuthgaurdserviceService,
     private router: Router) { }
 
   ngOnInit(): void {
+
+    this.FirstName=localStorage.getItem('currentUserFirstName')
+    this.LastName=localStorage.getItem('currentUserLastName')
+
   
   }
 

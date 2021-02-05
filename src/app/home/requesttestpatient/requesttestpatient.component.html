@@ -12,6 +12,22 @@
                             [ngClass]="{ 'is-invalid': submitted && f.PatientId.errors }" disabled class="form-control" id="exampleFormControlInput1" placeholder="eg. 123">
                           </div>
 
+                          <div class="form-group col-lg-3">
+                            <label for="exampleFormControlSelect2">Doctor</label>
+                            <select  class="form-control" formControlName="Doctor" name="Doctor" 
+                            [ngClass]="{ 'is-invalid': submitted && f.Doctor.errors }"
+                            id="exampleFormControlSelect2">
+                              <option *ngFor="let item of this.DoctorList; index as i;" value="{{this.DoctorListId}}">Dr. {{ this.DoctorListFirstName}} {{this.DoctorListLastName}}</option>
+  
+                             
+                            </select>
+                            <div *ngIf="submitted && f.Doctor.errors" class="invalid-feedback">
+                              <div *ngIf="f.Doctor.errors.required">Doctor  is required</div>
+        
+                             
+                                </div>
+                          </div>
+
                         <div class="form-group col-lg-3">
                           <label for="exampleFormControlInput1">Appointment Date</label>
                           <input type="date" class="form-control" formControlName="Date" name="Date" 
@@ -40,7 +56,7 @@
                               </div>
                         </div>
 
-                        <div class="form-group col-lg-2">
+                        <div class="form-group text-center col-lg-12">
                            <br>
                            <button class=" mt-2 btn btn-primary">Schedule</button>
                           </div>

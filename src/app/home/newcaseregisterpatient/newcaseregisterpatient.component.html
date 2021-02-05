@@ -31,9 +31,9 @@
                           <label for="exampleFormControlSelect2">Problem Type</label>
                           <select  class="form-control" formControlName="ProblemType" name="ProblemType" 
                           [ngClass]="{ 'is-invalid': submitted && f.ProblemType.errors }" >
-                          <option value="Corona">Corona</option>
-                          <option value="Dengue">Dengue</option>
-                          <option value="Blood">Blood</option>
+                          <option value="Orthopedic">Orthopedic</option>
+                          <option value="Gynecologist">Gynecologist</option>
+                          <option value="Physician">Physician</option>
                            
                           </select>
                           <div *ngIf="submitted && f.ProblemType.errors" class="invalid-feedback">
@@ -48,9 +48,8 @@
                           <select  class="form-control" formControlName="Doctor" name="Doctor" 
                           [ngClass]="{ 'is-invalid': submitted && f.Doctor.errors }"
                           id="exampleFormControlSelect2">
-                            <option value="Dr. shah">Dr. shah</option>
-                            <option value="Dr. Patel">Dr. Patel</option>
-                            <option value="Dr. Dave">Dr. Dave</option>
+                            <option *ngFor="let item of this.DoctorList; index as i;" value="{{this.DoctorListId}}">Dr. {{ this.DoctorListFirstName}} {{this.DoctorListLastName}}</option>
+
                            
                           </select>
                           <div *ngIf="submitted && f.Doctor.errors" class="invalid-feedback">

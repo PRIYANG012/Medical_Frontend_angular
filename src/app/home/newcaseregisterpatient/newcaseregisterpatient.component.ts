@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
+import { MainservicesService } from 'src/app/service/mainservices.service'
+import { RxFormBuilder,FormGroupExtension,RxFormGroup ,ResetFormType} from '@rxweb/reactive-form-validators'; 
 @Component({
   selector: 'app-newcaseregisterpatient',
   templateUrl: './newcaseregisterpatient.component.html',
@@ -9,12 +11,21 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class NewcaseregisterpatientComponent implements OnInit {
 
-  NewCaseRegistrationForm: FormGroup;
+  NewCaseRegistrationForm: RxFormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,) { }
 
+
+  DoctorList;
+  DoctorListFirstName;
+  DoctorListLastName;
+  DoctorListId;
+  constructor(private formBuilder: RxFormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private addCase:MainservicesService) { }
+
+
+  
   ngOnInit(): void {
     $(document).ready(function () {
       $('.active-tab2').css('display', 'inline-block');
@@ -39,9 +50,37 @@ export class NewcaseregisterpatientComponent implements OnInit {
 
     });
 
-    this.NewCaseRegistrationForm = this.formBuilder.group({
+    this.addCase.AllDoctors(
+        
+        ).subscribe(data =>{
+         this.DoctorList=data;
+        
+        
+
+         for(var v=0; v<this.DoctorList.length; v++)
+         {
+           this.DoctorListFirstName=this.DoctorList[v]["first_name"]
+           this.DoctorListLastName=this.DoctorList[v]["last_name"]
+           this.DoctorListId=this.DoctorList[v]["doc_id"]
+         }
+
+         
+     },
+     err => {
+       console.log(err['status'])
+       if(err['status'] == '400'){
+       }
+       else if(err['status'] == '500'){
+       }
+     }
+     
+     )
+
+
+    var currentPatientId=localStorage.getItem('currentUserId')
+    this.NewCaseRegistrationForm =<RxFormGroup> this.formBuilder.group({
     
-      PatientId: ['123', [Validators.required]],
+      PatientId: [currentPatientId, [Validators.required]],
       Date: ['', [Validators.required]],
       ProblemType: ['', [Validators.required]],
       Doctor: ['', [Validators.required]],
@@ -54,18 +93,51 @@ export class NewcaseregisterpatientComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-
-
+    var DatePass=this.NewCaseRegistrationForm.value.Date
+    var c=DatePass.split('-');
+    
+    DatePass=c[2]+'-'+c[1]+'-'+c[0]
+    
+    var currentPatientId=localStorage.getItem('currentUserId')
     if (this.NewCaseRegistrationForm.valid) {
-      console.log(this.NewCaseRegistrationForm);
-
      
+
+      this.addCase.AddCase(
+        currentPatientId,
+        DatePass,
+        this.NewCaseRegistrationForm.value.ProblemType,
+        this.NewCaseRegistrationForm.value.Doctor,
+        String(this.NewCaseRegistrationForm.value.Summary),
+       
+        
+        ).subscribe(data =>{
+         alert(data["msg"]);
+         this.reset()
+        
+         
+     },
+     err => {
+       console.log(err['status'])
+       if(err['status'] == '400'){
+       }
+       else if(err['status'] == '500'){
+       }
+     }
+     
+     )
 
     }
     else {
       return this.NewCaseRegistrationForm.invalid;
     }
 
+  }
+
+  reset(){
+    this.NewCaseRegistrationForm.resetForm({resetType:ResetFormType.ControlsOnly}); 
+    Object.keys(this.NewCaseRegistrationForm.controls).forEach(key => {
+      this.NewCaseRegistrationForm.controls[key].setErrors(null)
+    });
   }
 
 }

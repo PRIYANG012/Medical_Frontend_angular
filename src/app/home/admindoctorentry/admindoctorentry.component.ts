@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery' 
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
+import { MainservicesService } from 'src/app/service/mainservices.service'
+import { RxFormBuilder,FormGroupExtension,RxFormGroup ,ResetFormType} from '@rxweb/reactive-form-validators'; 
 @Component({
   selector: 'app-admindoctorentry',
   templateUrl: './admindoctorentry.component.html',
@@ -9,13 +11,14 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class AdmindoctorentryComponent implements OnInit {
 
-  DoctorRegistrationForm: FormGroup;
+  DoctorRegistrationForm: RxFormGroup;
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: RxFormBuilder,
     private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router,
+    private addDoctor:MainservicesService) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -36,7 +39,7 @@ export class AdmindoctorentryComponent implements OnInit {
 
     });
 
-    this.DoctorRegistrationForm = this.formBuilder.group({
+    this.DoctorRegistrationForm = <RxFormGroup>this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       FirstName: ['', [Validators.required]],
@@ -57,12 +60,42 @@ export class AdmindoctorentryComponent implements OnInit {
     if (this.DoctorRegistrationForm.valid) {
       console.log(this.DoctorRegistrationForm);
 
+      this.addDoctor.AddDoctor(
+        this.DoctorRegistrationForm.value.FirstName,
+        this.DoctorRegistrationForm.value.LastName,
+        this.DoctorRegistrationForm.value.email,
+        this.DoctorRegistrationForm.value.password,
+        String(this.DoctorRegistrationForm.value.Age),
+        this.DoctorRegistrationForm.value.Gender,
+        this.DoctorRegistrationForm.value.Specialization
+        
+        ).subscribe(data =>{
+         alert(data["msg"]);
+         this.reset()
+        
+         
+     },
+     err => {
+       console.log(err['status'])
+       if(err['status'] == '400'){
+       }
+       else if(err['status'] == '500'){
+       }
+     }
      
+     )
 
     }
     else {
       return this.DoctorRegistrationForm.invalid;
     }
 
+  }
+
+  reset(){
+    this.DoctorRegistrationForm.resetForm({resetType:ResetFormType.ControlsOnly}); 
+    Object.keys(this.DoctorRegistrationForm.controls).forEach(key => {
+      this.DoctorRegistrationForm.controls[key].setErrors(null)
+    });
   }
 }
