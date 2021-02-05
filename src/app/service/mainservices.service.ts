@@ -178,7 +178,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
@@ -194,7 +194,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
@@ -211,7 +211,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
@@ -227,7 +227,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
@@ -249,7 +249,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
@@ -265,7 +265,7 @@ export class MainservicesService {
 
       "test_patient_id":test_patient_id,
       "prescribed_by_doctor_id":prescribed_by_doctor_id,
-      "case_id":case_id,
+      "case_id":0,
       "test_date":test_date
         
       }
